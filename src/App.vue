@@ -1,78 +1,132 @@
 <template>
-    <data>
-        <div class="conteneur">
-            <div class="label">
-                JOUEUR 1 :
+    <div class="data">
+        <div class="container">
+            <div v-for="i in this.order">
+                <div class="row" v-if="i==1">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">JOUEUR 1 :</label>
+                            <input type="email" class="form-control" v-model="j1name">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">SET joueur 1 :</label>
+                            <input v-model="j1sets" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Points 1 :</label>
+                            <input type="number" class="form-control" v-model="j1points">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Couleur joueur 1 :</label>
+                            <input type="text" class="form-control" v-model="j1color">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" v-if="i==2">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">JOUEUR 2 :</label>
+                            <input type="email" class="form-control" v-model="j2name">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">SET joueur 2 :</label>
+                            <input v-model="j2sets" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Points 2 :</label>
+                            <input type="number" class="form-control" v-model="j2points">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Couleur joueur 2 :</label>
+                            <input type="text" class="form-control" v-model="j2color">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <input v-model="j1name" type="text">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Match</h1>
+                </div>
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label class="form-label">Service :</label>
+                        <select v-model="service" class="form-control">
+                            <option value="j1">Joueur 1 : {{ this.j1name }}</option>
+                            <option value="j2">Joueur 2 : {{ this.j2name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label class="form-label">Points / sets</label>
+                        <input type="text" class="form-control" v-model="ptsPerSet">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label class="form-label">Sets</label>
+                        <input type="text" class="form-control" v-model="setWinner">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label class="form-label">Chang. service</label>
+                        <input type="text" class="form-control" v-model="changeEvery">
+                    </div>
+                </div>
             </div>
-            <div class="label">SETS :</div>
-            <div>
-                <input v-model="j1sets" type="number">
-            </div>
-            <div class="label">
-                POINTS :
-            </div>
-            <div>
-                <input v-model="j1points" type="number">
-            </div>
-            <div class="label">
-                JOUEUR 2 :
-            </div>
-            <div>
-                <input v-model="j2name" type="text">
-            </div>
-            <div class="label">
-                SETS :
-            </div>
-            <div>
-                <input v-model="j2sets" type="number">
-            </div>
-            <div class="label">
-                POINTS :
-            </div>
-            <div>
-                <input v-model="j2points" type="number">
+            <div class="row">
+                <div class="col-3">
+                        <button @click="changeOrder" class="btn btn-primary mt-4">Changement de coté</button>
+                    </div>
             </div>
 
-            <div class="label">
-                SERVICE :
+            <div class="card">
+                <div class="card-body">
+                    <h3>Aide</h3>
+                    <p><i class="bi bi-arrow-left"></i></p>
+                </div>
             </div>
-            <div class="selecteur">
-                <select v-model="service">
-                    <option value="j1">Joueur 1 : {{ this.j1name }}</option>
-                    <option value="j2">Joueur 2 : {{ this.j2name }}</option>
-                </select>
-            </div>
-
-
-
+            
         </div>
-    </data>
+    </div>
 
-    <score>
-        <div class="user-score joueur1">
-            <div class="user-name">{{ this.j1name }}</div>
-            <div class="user-service">
-                <Transition>
-                    <div v-if="this.service == 'j1'" class="service"></div>
-                </Transition>
+    <div class="score">
+        <div v-for="i in this.order">
+            <div class="user-score joueur1" :style="{'background-color': this.j1color}" v-if="i == 1">
+                <div class="user-name">{{ this.j1name }}</div>
+                <div class="user-service">
+                    <Transition>
+                        <div v-if="this.service == 'j1'" class="service"></div>
+                    </Transition>
+                </div>
+                <div class="user-set">{{ this.j1sets }}</div>
+                <div class="user-point">{{ this.j1points }}</div>
             </div>
-            <div class="user-set">{{ this.j1sets }}</div>
-            <div class="user-point">{{ this.j1points }}</div>
-        </div>
-        <div class="user-score joueur2">
-            <div class="user-name">{{ this.j2name }}</div>
-            <div class="user-service">
-                <Transition>
-                    <div v-if="this.service == 'j2'" class="service"></div>
-                </Transition>
+            <div class="user-score joueur2" :style="{'background-color': this.j2color}"  v-if="i == 2">
+                <div class="user-name">{{ this.j2name }}</div>
+                <div class="user-service">
+                    <Transition>
+                        <div v-if="this.service == 'j2'" class="service"></div>
+                    </Transition>
+                </div>
+                <div class="user-set">{{ this.j2sets }}</div>
+                <div class="user-point">{{ this.j2points }}</div>
             </div>
-            <div class="user-set">{{ this.j2sets }}</div>
-            <div class="user-point">{{ this.j2points }}</div>
         </div>
-    </score>
+    </div>
 </template>
 
 
@@ -96,8 +150,55 @@ export default {
             j1points: 0,
             j2points: 0,
 
-            service: "j1",
+            j1color: '#454457',
+            j2color: '#45aa77',
 
+            service: "j1",
+            ptsPerSet: 11,
+            changeEvery: 2,
+            setWinner: 5,
+
+            gameStarted: false,
+
+            order: [1,2]
+        }
+    },
+    created() {
+        window.addEventListener('keydown', (e) => {
+            if (e.key == 'Escape') {
+                this.gameStarted = false
+            }
+
+            if (e.key == 'Enter') {
+                this.gameStarted = true
+            }
+
+            if (e.key == 'ArrowUp') {
+                this.j1points++;
+            }
+
+
+            if (e.key == 'ArrowLeft') {
+                this.j1points--;
+            }
+
+            if (e.key == 'ArrowDown') {
+                this.j2points++;
+            }
+            if (e.key == 'ArrowRight') {
+                this.j2points--;
+            }
+
+            console.log(e.key)
+
+        });
+    },
+    methods: {
+        changeOrder() {
+            if (this.order[0] == 1)
+                this.order=[2,1]
+            else
+                this.order=[1,2]
 
         }
     }
@@ -105,28 +206,14 @@ export default {
 </script>
 
 <style scoped>
-.conteneur {
-    display: grid;
-    grid-template-columns: 100px 200px 100px 50px 100px 100px;
-    gap: 1rem
-}
-
-input {
-    width: 100%;
-    padding: .5rem
-}
-
-data {
-    position: fixed;
-    top: 50px;
-    left: 50px;
+.data {
     background: lightblue;
-    padding: 3rem
+    padding: 3rem;
 }
 .label {font-weight: bold}
 
 
-score {
+.score {
     cursor: progress;
     margin: 3rem;
     width: 500px;
@@ -138,18 +225,20 @@ score {
     font-size: 30px;
     color: #fff;
     line-height: 1;
+    
 }
 
-score .joueur1 {
+.score .joueur1 {
     background: orange;
     margin-bottom: 5px;
 }
 
-score .joueur2 {
+.score .joueur2 {
     background: green;
+    margin-bottom: 5px;
 }
 
-score .user-score {
+.score .user-score {
     /*height: 40px;*/
     display: grid;
     grid-template-columns: 370px 30px 50px 50px;
