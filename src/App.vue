@@ -1,6 +1,3 @@
-
-
-
 <script setup>
 /*import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
@@ -256,7 +253,7 @@ export default {
 </style>
 
 <template>
-    <div class="data">
+    <div class="data" v-if="this">
         <div class="container">
             <div v-for="i in this.playerOrder">
                 <div class="row" v-if="i==1">
