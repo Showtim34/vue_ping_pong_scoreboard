@@ -9,6 +9,9 @@ https://openclassrooms.com/fr/courses/1603881-creez-votre-site-web-avec-html5-et
 export default {
     data() {
         return {
+
+            j1tmpName: '',
+            j2tmpName: '',
             j1name: 'Charlotte lutz',
             j2name: 'elena zacharia',
 
@@ -18,8 +21,18 @@ export default {
             j1points: 0,
             j2points: 0,
 
+            j1Logo: null,
+            j2Logo: null,
+
             j1color: '#454457',
             j2color: '#45aa77',
+
+            pointColor: '#ffffff',
+            setColor: '#ffffff',
+            setBackground: '#000000',
+            nameColor: '#ffffff',
+
+            serviceColor: '#ffffff',
 
             j1winner: false,
             j2winner: false,
@@ -58,6 +71,8 @@ export default {
                 this.tm1 = false
                 this.tm2 = false
                 this.resume = ''
+                this.j1name = this.j1tmpName
+                this.j2name = this.j2tmpName
             }
 
         },
@@ -99,7 +114,8 @@ export default {
 
                 this.gameStarted = false
             }
-        } 
+        } ,
+
     },
     created() {
         window.addEventListener('keydown', (e) => {
@@ -152,16 +168,35 @@ export default {
             }
        },
        tm(i) {
-            if (i == 1) this.tm1 = true
-            if (i == 2) this.tm2 = true
-       }
+            if (i == 1) this.tm1 = ! this.tm1
+            if (i == 2) this.tm2 = ! this.tm2
+       },
+       setlogo1(event) {
+            const files = event.target.files
+            console.log(files)
+            let filename = files[0].name
+            const fileReader = new FileReader()
+            fileReader.addEventListener('load', () => {
+                this.j1Logo = fileReader.result
+            })
+            fileReader.readAsDataURL(files[0])
+        },
+        setlogo2(event) {
+            const files = event.target.files
+            let filename = files[0].name
+            const fileReader = new FileReader()
+            fileReader.addEventListener('load', () => {
+                this.j2Logo = fileReader.result
+            })
+            fileReader.readAsDataURL(files[0])
+        }
     }
 }
 </script>
 
 <style scoped>
 .data {
-    background: lightblue;
+    background: #999999;
     padding: 3rem;
 }
 .label {font-weight: bold}
@@ -205,9 +240,13 @@ export default {
 .user-name {
     grid-area: 1 / 1 / 2 / 1;
     text-align: left;
-    padding: 5px;
-    text-transform: uppercase
+    padding: 5px 1px 5px 8px;
+    text-transform: uppercase;
+    font-size: 1.8rem;
 }
+.long { font-size: 1rem; padding-top: 0rem; line-height: 1; display: inline-block; display: inline-block; vertical-align: 0.2rem;}
+
+
 
 .user-service {
     grid-area: 1 / 2 / 2 / 2;
@@ -241,7 +280,7 @@ export default {
 .tm {
     position: absolute; 
     top: .8rem;
-    right: .5rem;
+    right: .2rem;
     font-size: 0.8rem;
     font-weight: bold;;
 }
@@ -249,6 +288,19 @@ export default {
 .resume {
     font-size: 0.9rem;
     color: #444;
+    position: fixed; top: 50px; right: 50px;
+    ;
+}
+h1 {font-size: 1.5rem;}
+
+.logo {position: fixed; left: 3px; width:42px; }
+.logo.j1 {
+    bottom: 107px;
+    
+}
+.logo.j2 {
+    bottom: 60px;
+    
 }
 </style>
 
@@ -260,25 +312,32 @@ export default {
                     <div class="col-3">
                         <div class="mb-3">
                             <label class="form-label">JOUEUR 1 :</label>
-                            <input type="email" class="form-control" v-model="j1name">
+                            <input type="email" class="form-control" v-model="j1tmpName">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="mb-3">
-                            <label class="form-label">SET joueur 1 :</label>
+                            <label class="form-label">SET :</label>
                             <input v-model="j1sets" type="number" class="form-control">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="mb-3">
-                            <label class="form-label">Points 1 :</label>
+                            <label class="form-label">Points :</label>
                             <input type="number" class="form-control" v-model="j1points">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="mb-3">
-                            <label class="form-label">Couleur joueur 1 :</label>
-                            <input type="text" class="form-control" v-model="j1color">
+                            <label class="form-label">Couleur :</label>
+                            <input type="color" class="form-control" v-model="j1color">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="mb-3">
+                            <label class="form-label">Logo :</label>
+                            <input type="file" class="form-control" @change="setlogo1" accept="image/*" v-if="!j1Logo">
+                            <div class="btn btn-sm btn-danger" @click="j1Logo = null" v-else>Supprimer</div>
                         </div>
                     </div>
                 </div>
@@ -286,25 +345,32 @@ export default {
                     <div class="col-3">
                         <div class="mb-3">
                             <label class="form-label">JOUEUR 2 :</label>
-                            <input type="email" class="form-control" v-model="j2name">
+                            <input type="email" class="form-control" v-model="j2tmpName">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="mb-3">
-                            <label class="form-label">SET joueur 2 :</label>
+                            <label class="form-label">SET :</label>
                             <input v-model="j2sets" type="number" class="form-control">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="mb-3">
-                            <label class="form-label">Points 2 :</label>
+                            <label class="form-label">Points :</label>
                             <input type="number" class="form-control" v-model="j2points">
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-1">
                         <div class="mb-3">
-                            <label class="form-label">Couleur joueur 2 :</label>
-                            <input type="text" class="form-control" v-model="j2color">
+                            <label class="form-label">Couleur</label>
+                            <input type="color" class="form-control" v-model="j2color">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="mb-3">
+                            <label class="form-label">Logo :</label>
+                            <input type="file" class="form-control" @change="setlogo2" accept="image/*" v-if="!j2Logo">
+                            <div class="btn btn-sm btn-danger" @click="j2Logo = null" v-else>Supprimer</div>
                         </div>
                     </div>
                 </div>
@@ -313,31 +379,61 @@ export default {
                 <div class="col-12">
                     <h1>Match</h1>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <div class="mb-3">
                         <label class="form-label">Service :</label>
                         <select v-model="service" class="form-control">
-                            <option value="j1">Joueur 1 : {{ j1name }}</option>
-                            <option value="j2">Joueur 2 : {{ j2name }}</option>
+                            <option value="j1">J1: {{ j1name }}</option>
+                            <option value="j2">J2: {{ j2name }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <div class="mb-3">
                         <label class="form-label">Points / sets</label>
                         <input type="text" class="form-control" v-model="ptsPerSet">
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <div class="mb-3">
-                        <label class="form-label">Sets gagnants</label>
+                        <label class="form-label">Sets gagn.</label>
                         <input type="text" class="form-control" v-model="setWinner">
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <div class="mb-3">
-                        <label class="form-label">Chang. service</label>
+                        <label class="form-label">Chang. serv.</label>
                         <input type="text" class="form-control" v-model="changeEvery">
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="mb-3">
+                        <label class="form-label">Nom</label>
+                        <input type="color" class="form-control" v-model="nameColor">
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="mb-3">
+                        <label class="form-label">Point</label>
+                        <input type="color" class="form-control " v-model="pointColor">
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="mb-3">
+                        <label class="form-label">Set</label>
+                        <input type="color" class="form-control" v-model="setColor">
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="mb-3">
+                        <label class="form-label">Set Fond</label>
+                        <input type="color" class="form-control" v-model="setBackground">
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="mb-3">
+                        <label class="form-label">Service</label>
+                        <input type="color" class="form-control" v-model="serviceColor">
                     </div>
                 </div>
             </div>
@@ -358,21 +454,8 @@ export default {
                     <button @click="tm(2)" class="btn btn-primary mt-3">TM2</button>
                 </div>
             </div>
-            <div class="card mt-4">
-                <div class="card-body">
-                    <p>
-                        <span style="margin-right: 1rem;">Joueur 1</span>
-                        <i class="bi bi-arrow-up-square-fill"></i>
-                        <span style="display: inline-block; margin-right: 1rem;">&nbsp;+1</span>
-                        <i class="bi bi-arrow-left-square-fill"></i> -1<br>
-                        <span style="margin-right: 1rem;">Joueur 2</span>
-                        <i class="bi bi-arrow-down-square-fill"></i>
-                        <span style="display: inline-block; margin-right: 1rem;">&nbsp;+1</span>
-                        <i class="bi bi-arrow-right-square-fill"></i> -1<br>
-                    </p>
-                </div>
-            </div>
-            
+            <img src="./assets/touche.png" style="width: 300px; position: absolute; right: 0; top: 190px">
+            <img src="./assets/scoreboard.png" style="width: 150px; position: fixed; left: 10px; top: 30px">
         </div>
     </div>
 
@@ -381,35 +464,35 @@ export default {
             <div class="user-score joueur1" :style="{'background-color': j1color}" v-if="i == 1">
                 <div class="user-name">
                     <i class="bi bi-trophy" v-if="j1winner"></i>
-                    <i class="bi bi-emoji-dizzy" v-if="j1looser"></i>
-                     {{ j1name }}
-                    <span class="tm" v-if="tm1">T</span>
+                    <span :style="{'color': nameColor}" v-bind:class="{'long': (j1name.length > 18)}">{{ j1name }}</span>
+                    <span class="tm" v-if="tm1" :style="{'color': nameColor}">T</span>
                 </div>
 
                 <div class="user-service">
                     <Transition>
-                        <div v-if="service == 'j1'" class="service"></div>
+                        <div v-if="service == 'j1'" class="service" :style="{'background': serviceColor}"></div>
                     </Transition>
                 </div>
-                <div class="user-set">{{ j1sets }}</div>
-                <div class="user-point">{{ j1points }}</div>
+                <div class="user-set" :style="{'color': setColor,'background': setBackground}">{{ j1sets }}</div>
+                <div class="user-point" :style="{'color': pointColor}">{{ j1points }}</div>
             </div>
             <div class="user-score joueur2" :style="{'background-color': j2color}"  v-if="i == 2">
-                <div class="user-name">
+                <div class="user-name" >
                     <i class="bi bi-trophy" v-if="j2winner"></i>
-                    <i class="bi bi-emoji-dizzy" v-if="j2looser"></i>
-                     {{ j2name }}
-                     <span class="tm" v-if="tm2">T</span>
+                     <span :style="{'color': nameColor}" v-bind:class="{'long': (j2name.length > 24)}">{{ j2name }}</span>
+                     <span class="tm" v-if="tm2" :style="{'color': nameColor}">T</span>
                 </div>
                 <div class="user-service">
                     <Transition>
-                        <div v-if="service == 'j2'" class="service"></div>
+                        <div v-if="service == 'j2'" class="service" :style="{'background': serviceColor}"></div>
                     </Transition>
                 </div>
-                <div class="user-set">{{ j2sets }}</div>
-                <div class="user-point">{{ j2points }}</div>
+                <div class="user-set" :style="{'color': setColor, 'background': setBackground}">{{ j2sets }}</div>
+                <div class="user-point" :style="{'color': pointColor}">{{ j2points }}</div>
             </div>
         </div>
         <div class="resume" v-html="resume"></div>
+        <img :src="j1Logo" class="logo j1" v-if="j1Logo">
+        <img :src="j2Logo" class="logo j2" v-if="j2Logo">
     </div>
 </template>
