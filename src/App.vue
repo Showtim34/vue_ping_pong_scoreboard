@@ -1,164 +1,4 @@
-<template>
-    <div class="data">
-        <div class="container">
-            <div v-for="i in this.playerOrder">
-                <div class="row" v-if="i==1">
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">JOUEUR 1 :</label>
-                            <input type="email" class="form-control" v-model="j1name">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">SET joueur 1 :</label>
-                            <input v-model="j1sets" type="number" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">Points 1 :</label>
-                            <input type="number" class="form-control" v-model="j1points">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">Couleur joueur 1 :</label>
-                            <input type="text" class="form-control" v-model="j1color">
-                        </div>
-                    </div>
-                </div>
-                <div class="row" v-if="i==2">
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">JOUEUR 2 :</label>
-                            <input type="email" class="form-control" v-model="j2name">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">SET joueur 2 :</label>
-                            <input v-model="j2sets" type="number" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">Points 2 :</label>
-                            <input type="number" class="form-control" v-model="j2points">
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="mb-3">
-                            <label class="form-label">Couleur joueur 2 :</label>
-                            <input type="text" class="form-control" v-model="j2color">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <h1>Match</h1>
-                </div>
-                <div class="col-3">
-                    <div class="mb-3">
-                        <label class="form-label">Service :</label>
-                        <select v-model="service" class="form-control">
-                            <option value="j1">Joueur 1 : {{ this.j1name }}</option>
-                            <option value="j2">Joueur 2 : {{ this.j2name }}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="mb-3">
-                        <label class="form-label">Points / sets</label>
-                        <input type="text" class="form-control" v-model="ptsPerSet">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="mb-3">
-                        <label class="form-label">Sets gagnants</label>
-                        <input type="text" class="form-control" v-model="setWinner">
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div class="mb-3">
-                        <label class="form-label">Chang. service</label>
-                        <input type="text" class="form-control" v-model="changeEvery">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3" v-if="this.gameStarted == false">
-                    <button @click="this.gameStarted = true" class="btn btn-success mt-3">Commencer le match</button>
-                </div>
-                <div class="col-3" v-if="this.gameStarted == true">
-                    <button @click="this.setFinish()" class="btn btn-danger mt-3">Terminer le match</button>
-                </div>
-                <div class="col-2">
-                    <button @click="changeOrder" class="btn btn-primary mt-3">Chang. de coté</button>
-                </div>
-                <div class="col-1">
-                    <button @click="this.tm(1)" class="btn btn-primary mt-3">TM1</button>
-                </div>
-                <div class="col-1">
-                    <button @click="this.tm(2)" class="btn btn-primary mt-3">TM2</button>
-                </div>
-            </div>
-            <div class="card mt-4">
-                <div class="card-body">
-                    <p>
-                        <span style="margin-right: 1rem;">Joueur 1</span>
-                        <i class="bi bi-arrow-up-square-fill"></i>
-                        <span style="display: inline-block; margin-right: 1rem;">&nbsp;+1</span>
-                        <i class="bi bi-arrow-left-square-fill"></i> -1<br>
-                        <span style="margin-right: 1rem;">Joueur 2</span>
-                        <i class="bi bi-arrow-down-square-fill"></i>
-                        <span style="display: inline-block; margin-right: 1rem;">&nbsp;+1</span>
-                        <i class="bi bi-arrow-right-square-fill"></i> -1<br>
-                    </p>
-                </div>
-            </div>
-            
-        </div>
-    </div>
 
-    <div class="score">
-        <div v-for="i in this.playerOrder">
-            <div class="user-score joueur1" :style="{'background-color': this.j1color}" v-if="i == 1">
-                <div class="user-name">
-                    <i class="bi bi-trophy" v-if="this.j1winner"></i>
-                    <i class="bi bi-emoji-dizzy" v-if="this.j1looser"></i>
-                     {{ this.j1name }}
-                    <span class="tm" v-if="this.tm1">T</span>
-                </div>
-
-                <div class="user-service">
-                    <Transition>
-                        <div v-if="this.service == 'j1'" class="service"></div>
-                    </Transition>
-                </div>
-                <div class="user-set">{{ this.j1sets }}</div>
-                <div class="user-point">{{ this.j1points }}</div>
-            </div>
-            <div class="user-score joueur2" :style="{'background-color': this.j2color}"  v-if="i == 2">
-                <div class="user-name">
-                    <i class="bi bi-trophy" v-if="this.j2winner"></i>
-                    <i class="bi bi-emoji-dizzy" v-if="this.j2looser"></i>
-                     {{ this.j2name }}
-                     <span class="tm" v-if="this.tm2">T</span>
-                </div>
-                <div class="user-service">
-                    <Transition>
-                        <div v-if="this.service == 'j2'" class="service"></div>
-                    </Transition>
-                </div>
-                <div class="user-set">{{ this.j2sets }}</div>
-                <div class="user-point">{{ this.j2points }}</div>
-            </div>
-        </div>
-        <div class="resume" v-html="this.resume"></div>
-    </div>
-</template>
 
 
 <script setup>
@@ -414,3 +254,165 @@ export default {
     color: #444;
 }
 </style>
+
+<template>
+    <div class="data">
+        <div class="container">
+            <div v-for="i in this.playerOrder">
+                <div class="row" v-if="i==1">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">JOUEUR 1 :</label>
+                            <input type="email" class="form-control" v-model="j1name">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">SET joueur 1 :</label>
+                            <input v-model="j1sets" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Points 1 :</label>
+                            <input type="number" class="form-control" v-model="j1points">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Couleur joueur 1 :</label>
+                            <input type="text" class="form-control" v-model="j1color">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" v-if="i==2">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">JOUEUR 2 :</label>
+                            <input type="email" class="form-control" v-model="j2name">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">SET joueur 2 :</label>
+                            <input v-model="j2sets" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Points 2 :</label>
+                            <input type="number" class="form-control" v-model="j2points">
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label class="form-label">Couleur joueur 2 :</label>
+                            <input type="text" class="form-control" v-model="j2color">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h1>Match</h1>
+                </div>
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label class="form-label">Service :</label>
+                        <select v-model="service" class="form-control">
+                            <option value="j1">Joueur 1 : {{ this.j1name }}</option>
+                            <option value="j2">Joueur 2 : {{ this.j2name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label class="form-label">Points / sets</label>
+                        <input type="text" class="form-control" v-model="ptsPerSet">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label class="form-label">Sets gagnants</label>
+                        <input type="text" class="form-control" v-model="setWinner">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label class="form-label">Chang. service</label>
+                        <input type="text" class="form-control" v-model="changeEvery">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3" v-if="this.gameStarted == false">
+                    <button @click="this.gameStarted = true" class="btn btn-success mt-3">Commencer le match</button>
+                </div>
+                <div class="col-3" v-if="this.gameStarted == true">
+                    <button @click="this.setFinish()" class="btn btn-danger mt-3">Terminer le match</button>
+                </div>
+                <div class="col-2">
+                    <button @click="changeOrder" class="btn btn-primary mt-3">Chang. de coté</button>
+                </div>
+                <div class="col-1">
+                    <button @click="this.tm(1)" class="btn btn-primary mt-3">TM1</button>
+                </div>
+                <div class="col-1">
+                    <button @click="this.tm(2)" class="btn btn-primary mt-3">TM2</button>
+                </div>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <p>
+                        <span style="margin-right: 1rem;">Joueur 1</span>
+                        <i class="bi bi-arrow-up-square-fill"></i>
+                        <span style="display: inline-block; margin-right: 1rem;">&nbsp;+1</span>
+                        <i class="bi bi-arrow-left-square-fill"></i> -1<br>
+                        <span style="margin-right: 1rem;">Joueur 2</span>
+                        <i class="bi bi-arrow-down-square-fill"></i>
+                        <span style="display: inline-block; margin-right: 1rem;">&nbsp;+1</span>
+                        <i class="bi bi-arrow-right-square-fill"></i> -1<br>
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="score">
+        <div v-for="i in this.playerOrder">
+            <div class="user-score joueur1" :style="{'background-color': this.j1color}" v-if="i == 1">
+                <div class="user-name">
+                    <i class="bi bi-trophy" v-if="this.j1winner"></i>
+                    <i class="bi bi-emoji-dizzy" v-if="this.j1looser"></i>
+                     {{ this.j1name }}
+                    <span class="tm" v-if="this.tm1">T</span>
+                </div>
+
+                <div class="user-service">
+                    <Transition>
+                        <div v-if="this.service == 'j1'" class="service"></div>
+                    </Transition>
+                </div>
+                <div class="user-set">{{ this.j1sets }}</div>
+                <div class="user-point">{{ this.j1points }}</div>
+            </div>
+            <div class="user-score joueur2" :style="{'background-color': this.j2color}"  v-if="i == 2">
+                <div class="user-name">
+                    <i class="bi bi-trophy" v-if="this.j2winner"></i>
+                    <i class="bi bi-emoji-dizzy" v-if="this.j2looser"></i>
+                     {{ this.j2name }}
+                     <span class="tm" v-if="this.tm2">T</span>
+                </div>
+                <div class="user-service">
+                    <Transition>
+                        <div v-if="this.service == 'j2'" class="service"></div>
+                    </Transition>
+                </div>
+                <div class="user-set">{{ this.j2sets }}</div>
+                <div class="user-point">{{ this.j2points }}</div>
+            </div>
+        </div>
+        <div class="resume" v-html="this.resume"></div>
+    </div>
+</template>
