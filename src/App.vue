@@ -253,9 +253,9 @@ export default {
 </style>
 
 <template>
-    <div class="data" v-if="this">
+    <div class="data">
         <div class="container">
-            <div v-for="i in this.playerOrder">
+            <div v-for="i in playerOrder">
                 <div class="row" v-if="i==1">
                     <div class="col-3">
                         <div class="mb-3">
@@ -342,7 +342,7 @@ export default {
                 </div>
             </div>
             <div class="row">
-                <div class="col-3" v-if="this.gameStarted == false">
+                <div class="col-3" v-if="gameStarted == false">
                     <button @click="this.gameStarted = true" class="btn btn-success mt-3">Commencer le match</button>
                 </div>
                 <div class="col-3" v-if="this.gameStarted == true">
@@ -377,7 +377,7 @@ export default {
     </div>
 
     <div class="score">
-        <div v-for="i in this.playerOrder">
+        <div v-for="i in playerOrder">
             <div class="user-score joueur1" :style="{'background-color': this.j1color}" v-if="i == 1">
                 <div class="user-name">
                     <i class="bi bi-trophy" v-if="this.j1winner"></i>
