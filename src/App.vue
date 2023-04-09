@@ -345,7 +345,7 @@ export default {
                 <div class="col-3" v-if="gameStarted == false">
                     <button @click="gameStarted = true" class="btn btn-success mt-3">Commencer le match</button>
                 </div>
-                <div class="col-3" v-if="this.gameStarted == true">
+                <div class="col-3" v-if="gameStarted == true">
                     <button @click="setFinish()" class="btn btn-danger mt-3">Terminer le match</button>
                 </div>
                 <div class="col-2">
