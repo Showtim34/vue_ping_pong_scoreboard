@@ -454,7 +454,7 @@ h1 {font-size: 1.5rem;}
                     <button @click="tm(2)" class="btn btn-primary mt-3">TM2</button>
                 </div>
             </div>
-            <img src="./assets/touche.png" style="width: 300px; position: absolute; right: 0; top: 190px">
+            <img src="./assets/touche.png" style="width: 300px; position: absolute; right: 150px; top: -20px">
             <img src="./assets/scoreboard.png" style="width: 150px; position: fixed; left: 10px; top: 30px">
         </div>
     </div>
