@@ -317,8 +317,8 @@ export default {
                     <div class="mb-3">
                         <label class="form-label">Service :</label>
                         <select v-model="service" class="form-control">
-                            <option value="j1">Joueur 1 : {{ this.j1name }}</option>
-                            <option value="j2">Joueur 2 : {{ this.j2name }}</option>
+                            <option value="j1">Joueur 1 : {{ j1name }}</option>
+                            <option value="j2">Joueur 2 : {{ j2name }}</option>
                         </select>
                     </div>
                 </div>
@@ -343,19 +343,19 @@ export default {
             </div>
             <div class="row">
                 <div class="col-3" v-if="gameStarted == false">
-                    <button @click="this.gameStarted = true" class="btn btn-success mt-3">Commencer le match</button>
+                    <button @click="gameStarted = true" class="btn btn-success mt-3">Commencer le match</button>
                 </div>
                 <div class="col-3" v-if="this.gameStarted == true">
-                    <button @click="this.setFinish()" class="btn btn-danger mt-3">Terminer le match</button>
+                    <button @click="setFinish()" class="btn btn-danger mt-3">Terminer le match</button>
                 </div>
                 <div class="col-2">
                     <button @click="changeOrder" class="btn btn-primary mt-3">Chang. de coté</button>
                 </div>
                 <div class="col-1">
-                    <button @click="this.tm(1)" class="btn btn-primary mt-3">TM1</button>
+                    <button @click="tm(1)" class="btn btn-primary mt-3">TM1</button>
                 </div>
                 <div class="col-1">
-                    <button @click="this.tm(2)" class="btn btn-primary mt-3">TM2</button>
+                    <button @click="tm(2)" class="btn btn-primary mt-3">TM2</button>
                 </div>
             </div>
             <div class="card mt-4">
@@ -378,38 +378,38 @@ export default {
 
     <div class="score">
         <div v-for="i in playerOrder">
-            <div class="user-score joueur1" :style="{'background-color': this.j1color}" v-if="i == 1">
+            <div class="user-score joueur1" :style="{'background-color': j1color}" v-if="i == 1">
                 <div class="user-name">
-                    <i class="bi bi-trophy" v-if="this.j1winner"></i>
-                    <i class="bi bi-emoji-dizzy" v-if="this.j1looser"></i>
-                     {{ this.j1name }}
-                    <span class="tm" v-if="this.tm1">T</span>
+                    <i class="bi bi-trophy" v-if="j1winner"></i>
+                    <i class="bi bi-emoji-dizzy" v-if="j1looser"></i>
+                     {{ j1name }}
+                    <span class="tm" v-if="tm1">T</span>
                 </div>
 
                 <div class="user-service">
                     <Transition>
-                        <div v-if="this.service == 'j1'" class="service"></div>
+                        <div v-if="service == 'j1'" class="service"></div>
                     </Transition>
                 </div>
-                <div class="user-set">{{ this.j1sets }}</div>
-                <div class="user-point">{{ this.j1points }}</div>
+                <div class="user-set">{{ j1sets }}</div>
+                <div class="user-point">{{ j1points }}</div>
             </div>
-            <div class="user-score joueur2" :style="{'background-color': this.j2color}"  v-if="i == 2">
+            <div class="user-score joueur2" :style="{'background-color': j2color}"  v-if="i == 2">
                 <div class="user-name">
-                    <i class="bi bi-trophy" v-if="this.j2winner"></i>
-                    <i class="bi bi-emoji-dizzy" v-if="this.j2looser"></i>
-                     {{ this.j2name }}
-                     <span class="tm" v-if="this.tm2">T</span>
+                    <i class="bi bi-trophy" v-if="j2winner"></i>
+                    <i class="bi bi-emoji-dizzy" v-if="j2looser"></i>
+                     {{ j2name }}
+                     <span class="tm" v-if="tm2">T</span>
                 </div>
                 <div class="user-service">
                     <Transition>
-                        <div v-if="this.service == 'j2'" class="service"></div>
+                        <div v-if="service == 'j2'" class="service"></div>
                     </Transition>
                 </div>
-                <div class="user-set">{{ this.j2sets }}</div>
-                <div class="user-point">{{ this.j2points }}</div>
+                <div class="user-set">{{ j2sets }}</div>
+                <div class="user-point">{{ j2points }}</div>
             </div>
         </div>
-        <div class="resume" v-html="this.resume"></div>
+        <div class="resume" v-html="resume"></div>
     </div>
 </template>
