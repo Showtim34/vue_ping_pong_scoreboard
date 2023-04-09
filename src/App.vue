@@ -1,7 +1,7 @@
 <template>
     <div class="data">
         <div class="container">
-            <div v-for="i in this.order">
+            <div v-for="i in this.playerOrder">
                 <div class="row" v-if="i==1">
                     <div class="col-3">
                         <div class="mb-3">
@@ -123,7 +123,7 @@
     </div>
 
     <div class="score">
-        <div v-for="i in this.order">
+        <div v-for="i in this.playerOrder">
             <div class="user-score joueur1" :style="{'background-color': this.j1color}" v-if="i == 1">
                 <div class="user-name">
                     <i class="bi bi-trophy" v-if="this.j1winner"></i>
@@ -200,7 +200,7 @@ export default {
 
             gameStarted: false,
 
-            order: [1,2],
+            playerOrder: [1,2],
 
             resume: ''
         }
@@ -297,10 +297,10 @@ export default {
     },
     methods: {
         changeOrder() {
-            if (this.order[0] == 1)
-                this.order=[2,1]
+            if (this.playerOrder[0] == 1)
+                this.playerOrder=[2,1]
             else
-                this.order=[1,2]
+                this.playerOrder=[1,2]
         },
         checkService() {
             let total = this.j1points + this.j2points
