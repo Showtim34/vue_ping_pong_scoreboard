@@ -228,7 +228,7 @@ export default {
             if (this.j1points < 0) {
                 this.j1points = 0;
             }
-            if (this.j1points == this.ptsPerSet && (this.j1points - this.j2points >= 2)) {
+            if (this.j1points >= this.ptsPerSet && (this.j1points - this.j2points >= 2)) {
                 this.resume = this.resume + ' | ' + '<strong>' + this.j1points + '</strong>' + ' - ' + this.j2points
                 this.j1sets++
                 this.j1points = 0;
