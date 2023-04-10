@@ -456,14 +456,16 @@ h1 {font-size: 1.5rem;}
             </div>
             <img src="./assets/touche.png" style="width: 300px; position: absolute; right: 150px; top: -20px">
             <img src="./assets/scoreboard.png" style="width: 150px; position: fixed; left: 10px; top: 30px">
+            <img src="./assets/abc.png" style="width: 150px; position: fixed; right: 30px; top: 250px">
         </div>
     </div>
 
     <div class="score">
         <div v-for="i in playerOrder">
             <div class="user-score joueur1" :style="{'background-color': j1color}" v-if="i == 1">
+                <img :src="j1Logo" class="logo" v-bind:class="{'j1':playerOrder[0] == 1, 'j2': playerOrder[0] == 2}" v-if="j1Logo">
                 <div class="user-name">
-                    <i class="bi bi-trophy" v-if="j1winner"></i>
+                    <i class="bi bi-trophy me-1" v-if="j1winner"></i>
                     <span :style="{'color': nameColor}" v-bind:class="{'long': (j1name.length > 18)}">{{ j1name }}</span>
                     <span class="tm" v-if="tm1" :style="{'color': nameColor}">T</span>
                 </div>
@@ -477,8 +479,9 @@ h1 {font-size: 1.5rem;}
                 <div class="user-point" :style="{'color': pointColor}">{{ j1points }}</div>
             </div>
             <div class="user-score joueur2" :style="{'background-color': j2color}"  v-if="i == 2">
+                <img :src="j2Logo" class="logo" v-bind:class="{'j1':playerOrder[0] == 1, 'j1': playerOrder[0] == 2}" v-if="j2Logo">
                 <div class="user-name" >
-                    <i class="bi bi-trophy" v-if="j2winner"></i>
+                    <i class="bi bi-trophy me-1" v-if="j2winner"></i>
                      <span :style="{'color': nameColor}" v-bind:class="{'long': (j2name.length > 24)}">{{ j2name }}</span>
                      <span class="tm" v-if="tm2" :style="{'color': nameColor}">T</span>
                 </div>
@@ -492,7 +495,7 @@ h1 {font-size: 1.5rem;}
             </div>
         </div>
         <div class="resume" v-html="resume"></div>
-        <img :src="j1Logo" class="logo j1" v-if="j1Logo">
-        <img :src="j2Logo" class="logo j2" v-if="j2Logo">
+        
+        
     </div>
 </template>
