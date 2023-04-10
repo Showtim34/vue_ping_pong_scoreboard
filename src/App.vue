@@ -204,6 +204,7 @@ export default {
 
 <style scoped>
 
+body { cursor: none;}
 input[type="color"] {
     height: 38px;
 }
@@ -211,12 +212,12 @@ input[type="color"] {
 .data {
     background: #999999;
     padding: 3rem;
+    cursor: pointer;
 }
 .label {font-weight: bold}
 
 
 .score {
-    cursor: none;
     margin: 3rem;
     width: 500px;
     height: 100px;
@@ -306,9 +307,9 @@ input[type="color"] {
 }
 h1 {font-size: 1.5rem;}
 
-.logo {position: fixed; left: 3px; width:42px; }
+.logo {position: absolute; left: -50px; width:42px; }
 .logo.j1 {
-    bottom: 107px;
+    top: 0px;
     
 }
 .logo.j2 {
@@ -318,8 +319,8 @@ h1 {font-size: 1.5rem;}
 </style>
 
 <template>
-    <div v-if="! accepted">
-        <input type="text" v-model="pass" class="form-control mt-4" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
+    <div v-if="! accepted" style="cursor: pointer; padding: 200px">
+        <input type="text" focus v-model="pass" class="form-control mt-4" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
     </div>
     <div class="data" v-if="accepted">
         <div class="container">
