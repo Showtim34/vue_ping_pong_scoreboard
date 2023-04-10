@@ -10,10 +10,13 @@ export default {
     data() {
         return {
 
-            j1tmpName: '',
-            j2tmpName: '',
-            j1name: 'Charlotte lutz',
-            j2name: 'elena zacharia',
+            pass: '',
+            accepted: false,
+
+            j1tmpName: 'Joueur 1',
+            j2tmpName: 'Joueur 2',
+            j1name: 'Joueur 1',
+            j2name: 'Joueur 2',
 
             j1sets: 0,
             j2sets: 0,
@@ -56,6 +59,12 @@ export default {
         }
     },
     watch: {
+        pass() {
+            if (this.pass == 'vivelepingpong' )
+            this.accepted = true
+
+        },
+
         gameStarted() {
             if (this.gameStarted) {
                 this.j1points = 0
@@ -173,7 +182,6 @@ export default {
        },
        setlogo1(event) {
             const files = event.target.files
-            console.log(files)
             let filename = files[0].name
             const fileReader = new FileReader()
             fileReader.addEventListener('load', () => {
@@ -195,6 +203,11 @@ export default {
 </script>
 
 <style scoped>
+
+input[type="color"] {
+    height: 38px;
+}
+
 .data {
     background: #999999;
     padding: 3rem;
@@ -207,7 +220,7 @@ export default {
     margin: 3rem;
     width: 500px;
     height: 100px;
-    position: fixed;
+    margin: 200px auto;
     bottom: 0;
     left: 0;
     font-weight: bold !important;
@@ -305,7 +318,10 @@ h1 {font-size: 1.5rem;}
 </style>
 
 <template>
-    <div class="data">
+    <div v-if="! accepted">
+        <input type="text" v-model="pass" class="form-control mt-4" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
+    </div>
+    <div class="data" v-if="accepted">
         <div class="container">
             <div v-for="i in playerOrder">
                 <div class="row" v-if="i==1">
@@ -333,9 +349,9 @@ h1 {font-size: 1.5rem;}
                             <input type="color" class="form-control" v-model="j1color">
                         </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <div class="mb-3">
-                            <label class="form-label">Logo :</label>
+                            <label class="form-label">Logo joueur 1 :</label>
                             <input type="file" class="form-control" @change="setlogo1" accept="image/*" v-if="!j1Logo">
                             <div class="btn btn-sm btn-danger" @click="j1Logo = null" v-else>Supprimer</div>
                         </div>
@@ -366,9 +382,9 @@ h1 {font-size: 1.5rem;}
                             <input type="color" class="form-control" v-model="j2color">
                         </div>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <div class="mb-3">
-                            <label class="form-label">Logo :</label>
+                            <label class="form-label">Logo joueur 1 :</label>
                             <input type="file" class="form-control" @change="setlogo2" accept="image/*" v-if="!j2Logo">
                             <div class="btn btn-sm btn-danger" @click="j2Logo = null" v-else>Supprimer</div>
                         </div>
@@ -444,8 +460,8 @@ h1 {font-size: 1.5rem;}
                 <div class="col-3" v-if="gameStarted == true">
                     <button @click="setFinish()" class="btn btn-danger mt-3">Terminer le match</button>
                 </div>
-                <div class="col-2">
-                    <button @click="changeOrder" class="btn btn-primary mt-3">Chang. de coté</button>
+                <div class="col-3">
+                    <button @click="changeOrder" class="btn btn-primary mt-3">Changement de coté</button>
                 </div>
                 <div class="col-1">
                     <button @click="tm(1)" class="btn btn-primary mt-3">TM1</button>
