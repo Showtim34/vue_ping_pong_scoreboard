@@ -319,8 +319,8 @@ h1 {font-size: 1.5rem;}
 </style>
 
 <template>
-    <div v-if="! accepted" style="cursor: pointer; padding: 200px">
-        <input type="text" focus v-model="pass" class="form-control mt-4" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
+    <div v-if="! accepted" style="cursor: pointer; padding: 200px; text-align: center;">
+        <input type="text" focus v-model="pass" class="form-control m-auto" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
     </div>
     <div class="data" v-if="accepted">
         <div class="container">
