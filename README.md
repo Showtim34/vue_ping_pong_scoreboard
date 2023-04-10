@@ -27,3 +27,4 @@ npm run dev
 ```sh
 npm run build
 ```
+Demo :https://pingpongscoreboard.onrender.com/
