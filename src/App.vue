@@ -456,7 +456,7 @@ h1 {font-size: 1.5rem;}
             </div>
             <img src="./assets/touche.png" style="width: 300px; position: absolute; right: 150px; top: -20px">
             <img src="./assets/scoreboard.png" style="width: 150px; position: fixed; left: 10px; top: 30px">
-            <img src="./assets/abc.png" style="width: 150px; position: fixed; right: 30px; top: 250px">
+            <a href="https://abc-camera.com/" target="blank" rel="no opener"><img src="./assets/abc.png" style="width: 150px; position: fixed; right: 30px; top: 250px"></a>
         </div>
     </div>
 
