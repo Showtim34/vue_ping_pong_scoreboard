@@ -495,7 +495,6 @@ h1 {font-size: 1.5rem;}
             </div>
         </div>
         <div class="resume" v-html="resume"></div>
-        
-        
+                
     </div>
 </template>
