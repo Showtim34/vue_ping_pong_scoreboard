@@ -13,8 +13,8 @@ export default {
             pass: '',
             accepted: false,
 
-            j1tmpName: 'Joueur 1',
-            j2tmpName: 'Joueur 2',
+            /*j1tmpName: 'Joueur 1',
+            j2tmpName: 'Joueur 2',*/
             j1name: 'Joueur 1',
             j2name: 'Joueur 2',
 
@@ -80,8 +80,8 @@ export default {
                 this.tm1 = false
                 this.tm2 = false
                 this.resume = ''
-                this.j1name = this.j1tmpName
-                this.j2name = this.j2tmpName
+                /*this.j1name = this.j1tmpName
+                this.j2name = this.j2tmpName*/
             }
 
         },
@@ -309,18 +309,18 @@ h1 {font-size: 1.5rem;}
 
 .logo {position: absolute; left: -50px; width:42px; }
 .logo.j1 {
-    top: 0px;
+    top: -2px;
     
 }
 .logo.j2 {
-    bottom: 60px;
+    bottom: 0px;
     
 }
 </style>
 
 <template>
-    <div v-if="! accepted" style="cursor: pointer; padding: 200px">
-        <input type="text" focus v-model="pass" class="form-control mt-4" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
+    <div v-if="! accepted" style="cursor: pointer; padding: 200px; text-align: center;">
+        <input type="text" focus v-model="pass" class="form-control m-auto" style="max-width: 220px; margin-left: 150px" placeholder="mot de passe">
     </div>
     <div class="data" v-if="accepted">
         <div class="container">
@@ -329,7 +329,7 @@ h1 {font-size: 1.5rem;}
                     <div class="col-3">
                         <div class="mb-3">
                             <label class="form-label">JOUEUR 1 :</label>
-                            <input type="email" class="form-control" v-model="j1tmpName">
+                            <input type="email" class="form-control" v-model="j1name">
                         </div>
                     </div>
                     <div class="col-1">
@@ -362,7 +362,7 @@ h1 {font-size: 1.5rem;}
                     <div class="col-3">
                         <div class="mb-3">
                             <label class="form-label">JOUEUR 2 :</label>
-                            <input type="email" class="form-control" v-model="j2tmpName">
+                            <input type="email" class="form-control" v-model="j2name">
                         </div>
                     </div>
                     <div class="col-1">
@@ -496,7 +496,7 @@ h1 {font-size: 1.5rem;}
                 <div class="user-point" :style="{'color': pointColor}">{{ j1points }}</div>
             </div>
             <div class="user-score joueur2" :style="{'background-color': j2color}"  v-if="i == 2">
-                <img :src="j2Logo" class="logo" v-bind:class="{'j1':playerOrder[0] == 1, 'j1': playerOrder[0] == 2}" v-if="j2Logo">
+                <img :src="j2Logo" class="logo" v-bind:class="{'j2':playerOrder[0] == 1, 'j1': playerOrder[0] == 2}" v-if="j2Logo">
                 <div class="user-name" >
                     <i class="bi bi-trophy me-1" v-if="j2winner"></i>
                      <span :style="{'color': nameColor}" v-bind:class="{'long': (j2name.length > 24)}">{{ j2name }}</span>
