@@ -13,8 +13,8 @@ export default {
             pass: '',
             accepted: false,
 
-            j1tmpName: 'Joueur 1',
-            j2tmpName: 'Joueur 2',
+            /*j1tmpName: 'Joueur 1',
+            j2tmpName: 'Joueur 2',*/
             j1name: 'Joueur 1',
             j2name: 'Joueur 2',
 
@@ -80,8 +80,8 @@ export default {
                 this.tm1 = false
                 this.tm2 = false
                 this.resume = ''
-                this.j1name = this.j1tmpName
-                this.j2name = this.j2tmpName
+                /*this.j1name = this.j1tmpName
+                this.j2name = this.j2tmpName*/
             }
 
         },
@@ -329,7 +329,7 @@ h1 {font-size: 1.5rem;}
                     <div class="col-3">
                         <div class="mb-3">
                             <label class="form-label">JOUEUR 1 :</label>
-                            <input type="email" class="form-control" v-model="j1tmpName">
+                            <input type="email" class="form-control" v-model="j1name">
                         </div>
                     </div>
                     <div class="col-1">
@@ -362,7 +362,7 @@ h1 {font-size: 1.5rem;}
                     <div class="col-3">
                         <div class="mb-3">
                             <label class="form-label">JOUEUR 2 :</label>
-                            <input type="email" class="form-control" v-model="j2tmpName">
+                            <input type="email" class="form-control" v-model="j2name">
                         </div>
                     </div>
                     <div class="col-1">
