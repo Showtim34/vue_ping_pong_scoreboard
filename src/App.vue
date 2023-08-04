@@ -11,12 +11,14 @@ export default {
         return {
 
             pass: '',
-            accepted: false,
+            accepted: (window.location.port == '5173') ? true : false,
 
             /*j1tmpName: 'Joueur 1',
             j2tmpName: 'Joueur 2',*/
-            j1name: 'Joueur 1',
-            j2name: 'Joueur 2',
+            j1name: (window.location.port == '5173') ? 'UCHAUD (ARTHUR/EMMA)' :'Joueur 1',
+            j2name: (window.location.port == '5173') ? 'UCHAUD (LUCAS/MAEL)' :'Joueur 2',
+
+            fontSize: '12',
 
             j1sets: 0,
             j2sets: 0,
@@ -324,6 +326,14 @@ h1 {font-size: 1.5rem;}
     </div>
     <div class="data" v-if="accepted">
         <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label class="form-label">Taille de la police :</label>
+                        <input type="number" class="form-control" v-model="fontSize">
+                    </div>
+                </div>
+            </div>
             <div v-for="i in playerOrder">
                 <div class="row" v-if="i==1">
                     <div class="col-3">
@@ -483,7 +493,7 @@ h1 {font-size: 1.5rem;}
                 <img :src="j1Logo" class="logo" v-bind:class="{'j1':playerOrder[0] == 1, 'j2': playerOrder[0] == 2}" v-if="j1Logo">
                 <div class="user-name">
                     <i class="bi bi-trophy me-1" v-if="j1winner"></i>
-                    <span :style="{'color': nameColor}" v-bind:class="{'long': (j1name.length > 18)}">{{ j1name }}</span>
+                    <span :style="{'color': nameColor, 'font-size' : fontSize+ 'px', 'white-space': 'pre', 'vertical-align': 'middle'}" v-html="j1name"></span>
                     <span class="tm" v-if="tm1" :style="{'color': nameColor}">T</span>
                 </div>
 
@@ -499,7 +509,7 @@ h1 {font-size: 1.5rem;}
                 <img :src="j2Logo" class="logo" v-bind:class="{'j2':playerOrder[0] == 1, 'j1': playerOrder[0] == 2}" v-if="j2Logo">
                 <div class="user-name" >
                     <i class="bi bi-trophy me-1" v-if="j2winner"></i>
-                     <span :style="{'color': nameColor}" v-bind:class="{'long': (j2name.length > 24)}">{{ j2name }}</span>
+                     <span :style="{'color': nameColor, 'font-size' : fontSize + 'px', 'white-space': 'pre', 'vertical-align': 'middle'}" v-html="j2name"></span>
                      <span class="tm" v-if="tm2" :style="{'color': nameColor}">T</span>
                 </div>
                 <div class="user-service">
