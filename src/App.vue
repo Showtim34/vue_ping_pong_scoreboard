@@ -18,6 +18,9 @@ export default {
             j1name: (window.location.port == '5173') ? 'UCHAUD (ARTHUR/EMMA)' :'Joueur 1',
             j2name: (window.location.port == '5173') ? 'UCHAUD (LUCAS/MAEL)' :'Joueur 2',
 
+            tournementName: '',
+            tournementColor: '#fda815',
+
             fontSize: '12',
 
             j1sets: 0,
@@ -318,6 +321,15 @@ h1 {font-size: 1.5rem;}
     bottom: 0px;
     
 }
+
+.tournement {
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    padding-bottom:  5px;
+}
+.tournement span {font-weight: bold;}
+
 </style>
 
 <template>
@@ -329,7 +341,19 @@ h1 {font-size: 1.5rem;}
             <div class="row">
                 <div class="col-3">
                     <div class="mb-3">
-                        <label class="form-label">Taille de la police :</label>
+                        <label class="form-label">Nom du tournoi :</label>
+                            <input type="email" class="form-control" v-model="tournementName">
+                    </div>
+                </div>
+                <div class="col-1">
+                        <div class="mb-3">
+                            <label class="form-label">Couleur</label>
+                            <input type="color" class="form-control" v-model="tournementColor">
+                        </div>
+                    </div>
+                <div class="col-1">
+                    <div class="mb-3">
+                        <label class="form-label">Taille font :</label>
                         <input type="number" class="form-control" v-model="fontSize">
                     </div>
                 </div>
@@ -488,6 +512,11 @@ h1 {font-size: 1.5rem;}
     </div>
 
     <div class="score">
+
+        <div class="tournement" :style="{'background-color': tournementColor}" v-if="tournementName">
+            <span :style="{'color': nameColor, 'font-size' : 15+ 'px', 'white-space': 'pre', 'vertical-align': 'middle'}" v-html="tournementName"></span>
+        </div>
+
         <div v-for="i in playerOrder">
             <div class="user-score joueur1" :style="{'background-color': j1color}" v-if="i == 1">
                 <img :src="j1Logo" class="logo" v-bind:class="{'j1':playerOrder[0] == 1, 'j2': playerOrder[0] == 2}" v-if="j1Logo">
