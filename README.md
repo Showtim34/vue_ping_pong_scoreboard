@@ -28,3 +28,8 @@ npm run dev
 npm run build
 ```
 Demo :https://pingpongscoreboard.onrender.com/
+
+
+Update:
+Push le code sur github
+se connecter à https://dashboard.render.com/ et faire déploy last commit
