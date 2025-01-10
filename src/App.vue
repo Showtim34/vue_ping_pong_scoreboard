@@ -599,7 +599,7 @@ h1 {
                 <!-- NOUVEAU bouton RESET à côté de TM2 -->
                 <div class="col-2">
                     <button @click="resetStorage" class="btn btn-warning mt-3">
-                        Reset Storage
+                        Effacer données
                     </button>
                 </div>
             </div>
