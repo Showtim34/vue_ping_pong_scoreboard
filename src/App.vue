@@ -131,12 +131,10 @@ export default {
         // WATCH GLOBAL : on sauvegarde les data, UNIQUEMENT si isMaster==true
         // ----------------------------------------------------------------
         $data: {
-            handler(val) {
-                if (!this.isMaster) return // si on est "slave", on ne sauvegarde pas
-
-                // Sinon, on sauvegarde toutes les données
+            handler: _.debounce(function(val) {
+                if (!this.isMaster) return
                 localStorage.setItem('pingpong-data', JSON.stringify(val))
-            },
+            }, 150),
             deep: true
         }
     },
