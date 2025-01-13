@@ -10,8 +10,10 @@
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
     "bootstrap-icons": "^1.10.4",
+    "lodash": "^4.17.21",
     "mutationobserver-shim": "^0.3.7",
-    "vue": "^3.2.47"
+    "vue": "^3.2.47",
+    "vue-lodash": "^2.1.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
